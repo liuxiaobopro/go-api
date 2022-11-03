@@ -1,0 +1,42 @@
+App:
+  Host: 0.0.0.0
+  ProjectName: "github.com/liuxiaobopro/go-api"
+  Debug: true
+  LoggerFolderPath: "runtime/log"
+  Sale: "Write casually"
+  UploadFolderPath: "/upload/local"
+  SqlSaveToFile: false
+  SqlLogPath: runtime/sql
+  IsInstall: false
+  InstallFileName: "install.lock"
+
+Ws:
+  IsOpen: true
+  Route: "/ws/:channel"
+
+Database:
+  Mdb:
+    Host: "127.0.0.1"
+    Port: 3306
+    Database: "goapi_1"
+    Username: "goapi_1"
+    Password: "KWfZkXrRDZhrB57D"
+    Charset: "utf8mb4"
+    Prefix: "ga_"
+  Sdb:
+    Host: "127.0.0.1"
+    Port: 3306
+    Database: "goapi_2"
+    Username: "goapi_2"
+    Password: "PxtKmChc6MAPhJEM"
+    Charset: "utf8mb4"
+    Prefix: "ga_"
+
+Upload:
+  Qiniu:
+    AccessKey: ""
+    SecretKey: ""
+    Bucket: ""
+    Domain: ""
+    FilePath: "/upload/qiniu"
+    IsDelLocal: false
