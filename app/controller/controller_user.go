@@ -1,10 +1,9 @@
 package controller
 
 import (
+	"github.com/liuxiaobopro/go-api/app/model"
+	"github.com/liuxiaobopro/go-api/app/service"
 	"strconv"
-
-	"github.com/liuxiaobopro/go-api/app/admin/model"
-	"github.com/liuxiaobopro/go-api/app/admin/service"
 
 	"github.com/gin-gonic/gin"
 	"github.com/liuxiaobopro/go-lib/ecode"

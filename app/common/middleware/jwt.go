@@ -1,10 +1,9 @@
 package middleware
 
 import (
+	"github.com/liuxiaobopro/go-api/app/dao"
+	"github.com/liuxiaobopro/go-api/app/model"
 	"net/http"
-
-	"github.com/liuxiaobopro/go-api/app/admin/dao"
-	"github.com/liuxiaobopro/go-api/app/admin/model"
 
 	"github.com/gin-gonic/gin"
 	"github.com/liuxiaobopro/go-lib/ecode"

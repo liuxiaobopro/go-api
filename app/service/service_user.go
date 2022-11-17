@@ -1,10 +1,10 @@
 package service
 
 import (
-	"github.com/liuxiaobopro/go-api/app/admin/dao"
-	"github.com/liuxiaobopro/go-api/app/admin/model"
 	"github.com/liuxiaobopro/go-api/app/common/errcode"
 	"github.com/liuxiaobopro/go-api/app/common/middleware"
+	dao2 "github.com/liuxiaobopro/go-api/app/dao"
+	"github.com/liuxiaobopro/go-api/app/model"
 	"github.com/liuxiaobopro/go-api/global"
 
 	"github.com/liuxiaobopro/go-lib/ecode"
@@ -22,7 +22,7 @@ func (*UserServiceType) AddUser(req *model.AddUser) (int, ecode.BizErr) {
 		return 0, errcode.TWO_PASSWORDS_ARE_INCONSISTENT
 	}
 	// 判断用户是否存在
-	user, _ := dao.UserDao.GetUserByUsername(req.Username)
+	user, _ := dao2.UserDao.GetUserByUsername(req.Username)
 	if user.Id > 0 {
 		return 0, ecode.ERROR_RESOURCE_ALREADY_EXISTS
 	}
@@ -36,14 +36,14 @@ func (*UserServiceType) AddUser(req *model.AddUser) (int, ecode.BizErr) {
 		Phone:    req.Phone,
 	}
 	// 添加用户
-	insert, err := dao.UserDao.AddUser(userAdd)
+	insert, err := dao2.UserDao.AddUser(userAdd)
 	return insert, err
 }
 
 // Login 用户登录
 func (*UserServiceType) Login(req *model.LoginUser) (map[string]interface{}, ecode.BizErr) {
 	//#region 判断用户是否存在
-	user, _ := dao.UserDao.GetUserByUsername(req.Username)
+	user, _ := dao2.UserDao.GetUserByUsername(req.Username)
 	if user.Id == 0 {
 		return nil, ecode.ERROR_RESOURCE_DONT_EXISTS
 	}
@@ -78,15 +78,15 @@ func (*UserServiceType) Login(req *model.LoginUser) (map[string]interface{}, eco
 // Logout 用户退出
 func (*UserServiceType) Logout(uid int) ecode.BizErr {
 	// 将token置空
-	dao.TokenDao.UpdateByUidField(uid, "token", "")
-	dao.TokenDao.UpdateByUidField(uid, "expiration_time", 0)
+	dao2.TokenDao.UpdateByUidField(uid, "token", "")
+	dao2.TokenDao.UpdateByUidField(uid, "expiration_time", 0)
 	return ecode.SUCCSESS
 }
 
 // UpdateUserById 根据id修改用户
 func (*UserServiceType) UpdateUserById(id int, req *model.UpdateUser) (int, ecode.BizErr) {
 	// 判断用户是否存在
-	user, _ := dao.UserDao.GetUserById(id)
+	user, _ := dao2.UserDao.GetUserById(id)
 	if user.Id == 0 {
 		return 0, ecode.ERROR_RESOURCE_DONT_EXISTS
 	}
@@ -99,7 +99,7 @@ func (*UserServiceType) UpdateUserById(id int, req *model.UpdateUser) (int, ecod
 	}
 	if req.Nickname != "" {
 		// 判断昵称唯一
-		user, _ := dao.UserDao.GetUserByNickname(req.Nickname)
+		user, _ := dao2.UserDao.GetUserByNickname(req.Nickname)
 		if user.Id > 0 {
 			return 0, errcode.NICKNAME_ALREADY_EXIST
 		}
@@ -107,7 +107,7 @@ func (*UserServiceType) UpdateUserById(id int, req *model.UpdateUser) (int, ecod
 	}
 	if req.Phone != "" {
 		// 判断手机号唯一
-		user, _ := dao.UserDao.GetUserByPhone(req.Phone)
+		user, _ := dao2.UserDao.GetUserByPhone(req.Phone)
 		if user.Id > 0 {
 			return 0, errcode.PHONE_ALREADY_EXIST
 		}
@@ -118,26 +118,26 @@ func (*UserServiceType) UpdateUserById(id int, req *model.UpdateUser) (int, ecod
 		return 0, ecode.ERROR_PARAMETER_EXCEPTION
 	}
 	// 修改用户
-	update, err := dao.UserDao.UpdateUserById(id, userUpdate)
+	update, err := dao2.UserDao.UpdateUserById(id, userUpdate)
 	return update, err
 }
 
 // DeleteUserById 根据id删除用户
 func (*UserServiceType) DeleteUserById(id int) (int, ecode.BizErr) {
 	// 判断用户是否存在
-	user, _ := dao.UserDao.GetUserById(id)
+	user, _ := dao2.UserDao.GetUserById(id)
 	if user.Id == 0 {
 		return 0, ecode.ERROR_RESOURCE_DONT_EXISTS
 	}
 	// 删除用户
-	delete, err := dao.UserDao.DeleteUserById(id)
+	delete, err := dao2.UserDao.DeleteUserById(id)
 	return delete, err
 }
 
 // GetUserList 获取用户列表
 func (*UserServiceType) GetUserList(req *model.SearchUser) ([]*model.DetailUser, ecode.BizErr) {
 	// 获取用户列表
-	users, err := dao.UserDao.GetUserList(req)
+	users, err := dao2.UserDao.GetUserList(req)
 	if err != ecode.SUCCSESS {
 		return nil, err
 	}
@@ -158,6 +158,6 @@ func (*UserServiceType) GetUserList(req *model.SearchUser) ([]*model.DetailUser,
 // 获取用户列表总数
 func (*UserServiceType) GetUserListTotal(req *model.SearchUser) (int, ecode.BizErr) {
 	// 获取用户列表总数
-	total, err := dao.UserDao.GetUserListTotal(req)
+	total, err := dao2.UserDao.GetUserListTotal(req)
 	return total, err
 }

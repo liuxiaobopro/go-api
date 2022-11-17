@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/liuxiaobopro/go-api/app/admin/dao"
-	"github.com/liuxiaobopro/go-api/app/admin/model"
+	"github.com/liuxiaobopro/go-api/app/dao"
+	"github.com/liuxiaobopro/go-api/app/model"
 
 	"github.com/liuxiaobopro/go-lib/ecode"
 	"github.com/liuxiaobopro/go-lib/response"

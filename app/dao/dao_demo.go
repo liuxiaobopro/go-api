@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"github.com/liuxiaobopro/go-api/app/admin/model"
+	"github.com/liuxiaobopro/go-api/app/model"
 	"github.com/liuxiaobopro/go-api/global"
 
 	"github.com/liuxiaobopro/go-lib/ecode"
